@@ -94,16 +94,21 @@ public class CrashesPage extends Fragment {
                     public void onSuccess(Location location) {
                         // Got last known location. In some rare situations this can be null.
                         if (location != null) {
-                            String firstName = contact.firstName;
-                            String lastName = contact.lastName;
-                            String phoneNumber = contact.phoneNumber;
-                            String relation = contact.relation;
-                            SmsManager smsManager = SmsManager.getDefault();
-                            String message = getString(R.string.sms_message, firstName, lastName, relation, String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude()));
-                            System.out.println(message);
-                            smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                            sendSMS(location);
                             // Logic to handle location object
                         }
+                    }
+
+                    public void sendSMS(Location location) {
+                        String firstName = contact.firstName;
+                        String lastName = contact.lastName;
+                        String phoneNumber = contact.phoneNumber;
+                        String relation = contact.relation;
+                        SmsManager smsManager = SmsManager.getDefault();
+                        String message = getString(R.string.sms_message, firstName, lastName, relation, String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude()));
+                        System.out.println(message);
+                        smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+
                     }
                 });
     }
